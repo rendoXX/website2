@@ -19,27 +19,59 @@ import Footer from '../components/footer.astro';
             height: 100vh;
             background-color: skyblue;
             flex-direction: column;
+            text-align: center;
         }
         canvas {
             background-color: lightblue;
             border: 2px solid black;
         }
-        #scoreDisplay {
+        #scoreDisplay, #startText {
             font-size: 24px;
             font-weight: bold;
             color: white;
             position: absolute;
-            top: 20px;
         }
-        #startText {
-            font-size: 20px;
-            color: white;
+        #scoreDisplay { top: 20px; }
+        #startText { bottom: 60px; }
+        header {
             position: absolute;
-            bottom: 50px;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            justify-content: center;
+        }
+        nav li {
+            margin: 0 10px;
+        }
+        nav button {
+            padding: 8px 12px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
+    <header>
+      <nav>
+        <ul>
+          <li><button onclick="window.location.href='/'">Home</button></li>
+          <li><button onclick="window.location.href='/2'">Test1</button></li>
+          <li><button onclick="window.location.href='/3'">Test2</button></li>
+        </ul>
+      </nav>
+    </header>
+
+    <h1 style="color: white; margin-top: 60px;">Flappy Covet</h1>
+    <p style="color: white;">Press SPACE to fly, avoid obstacles!</p>
+
     <div id="scoreDisplay">Score: 0</div>
     <canvas id="gameCanvas"></canvas>
     <div id="startText">Press SPACE to Start</div>
@@ -57,7 +89,7 @@ import Footer from '../components/footer.astro';
         const covetImg = new Image();
         covetImg.src = "/covet.png"; // Make sure you have this image in your public folder
 
-        let covet, pipes, score, gameRunning, gameStarted;
+        let covet, pipes, score, gameRunning, gameStarted, pipeInterval;
 
         function resetGame() {
             covet = { x: 100, y: 250, width: 50, height: 40, velocity: 0, gravity: 0.5 };
@@ -67,6 +99,7 @@ import Footer from '../components/footer.astro';
             gameStarted = false;
             startText.style.display = "block";
             scoreDisplay.textContent = "Score: 0";
+            clearInterval(pipeInterval); // Fix for unbeatable levels
         }
 
         function drawCovet() {
@@ -97,13 +130,18 @@ import Footer from '../components/footer.astro';
                     gameRunning = false;
                     startText.innerText = `Game Over! Score: ${score} (Press SPACE to Restart)`;
                     startText.style.display = "block";
+                    clearInterval(pipeInterval); // Stop pipes when game is over
                 }
             });
         }
 
         function spawnPipe() {
-            let topHeight = Math.floor(Math.random() * 200) + 50;
-            let gap = 140;
+            let minGap = 140;
+            let maxGap = 160;
+            let minHeight = 80;
+            let maxHeight = 220;
+            let topHeight = Math.floor(Math.random() * (maxHeight - minHeight)) + minHeight;
+            let gap = Math.floor(Math.random() * (maxGap - minGap)) + minGap;
             pipes.push({ x: canvas.width, width: 60, topHeight, gap });
         }
 
@@ -124,7 +162,7 @@ import Footer from '../components/footer.astro';
                     gameStarted = true;
                     gameRunning = true;
                     startText.style.display = "none";
-                    setInterval(spawnPipe, 2000);
+                    pipeInterval = setInterval(spawnPipe, 2000); // Properly resets pipes
                     gameLoop();
                 }
                 if (gameRunning) {
