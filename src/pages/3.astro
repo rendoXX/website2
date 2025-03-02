@@ -1,3 +1,7 @@
+---
+import '../styles/global.css';
+---
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -52,18 +56,18 @@
   <body>
     <header>
       <nav>
-        <ul>
-          <li>
-            <button id="test" href="../pages/index.astro">Home</button>
-          </li>
-          <li>
-            <button id="test" href="../pages/2.astro">Test1</button>
-          </li>
-          <li>
-            <button id="test" href="../pages/3.astro">Test2</button>
-          </li>
-        </ul>
-      </nav>
+  <ul>
+    <li>
+      <button id="test" onclick="window.location.href='/'">Home</button>
+    </li>
+    <li>
+      <button id="test" onclick="window.location.href='/2'">Test1</button>
+    </li>
+    <li>
+      <button id="test" onclick="window.location.href='/3'">Test2</button>
+    </li>
+  </ul>
+</nav>
     </header>
     <h1>Car Dodge Game</h1>
     <p>Avoid the obstacles! Use left/right arrow keys.</p>
