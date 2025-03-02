@@ -14,37 +14,23 @@ import Footer from '../components/footer.astro';
             margin: 0;
             overflow: hidden;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
             background-color: skyblue;
-            flex-direction: column;
-            text-align: center;
         }
-        canvas {
-            background-color: lightblue;
-            border: 2px solid black;
-        }
-        #scoreDisplay, #startText {
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            position: absolute;
-        }
-        #scoreDisplay { top: 20px; }
-        #startText { bottom: 60px; }
         header {
-            position: absolute;
-            top: 0;
             width: 100%;
             background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
+            padding: 10px 0;
+            text-align: center;
         }
         nav ul {
             display: flex;
+            justify-content: center;
             list-style: none;
             padding: 0;
-            justify-content: center;
+            margin: 0;
         }
         nav li {
             margin: 0 10px;
@@ -56,21 +42,52 @@ import Footer from '../components/footer.astro';
             cursor: pointer;
             font-size: 16px;
         }
+        h1 {
+            color: white;
+            margin: 10px 0;
+        }
+        p {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        canvas {
+            background-color: lightblue;
+            border: 2px solid black;
+        }
+        #scoreDisplay {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-top: 10px;
+        }
+        #startText {
+            font-size: 20px;
+            font-weight: bold;
+            color: yellow;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <header>
       <nav>
-        <ul>
-          <li><button onclick="window.location.href='/'">Home</button></li>
-          <li><button onclick="window.location.href='/2'">Test1</button></li>
-          <li><button onclick="window.location.href='/3'">Test2</button></li>
-        </ul>
-      </nav>
+  <ul>
+    <li>
+      <button id="test" onclick="window.location.href='/'">Home</button>
+    </li>
+    <li>
+      <button id="test" onclick="window.location.href='/2'">Test1</button>
+    </li>
+    <li>
+      <button id="test" onclick="window.location.href='/3'">Test2</button>
+    </li>
+  </ul>
+</nav>
     </header>
 
-    <h1 style="color: white; margin-top: 60px;">Flappy Covet</h1>
-    <p style="color: white;">Press SPACE to fly, avoid obstacles!</p>
+    <h1>Flappy Covet</h1>
+    <p>Press SPACE to fly, avoid obstacles!</p>
 
     <div id="scoreDisplay">Score: 0</div>
     <canvas id="gameCanvas"></canvas>
@@ -87,7 +104,7 @@ import Footer from '../components/footer.astro';
         canvas.height = 600;
 
         const covetImg = new Image();
-        covetImg.src = "/covet.png"; // Make sure you have this image in your public folder
+        covetImg.src = "/covet.png"; // Ensure this image exists
 
         let covet, pipes, score, gameRunning, gameStarted, pipeInterval;
 
@@ -116,7 +133,7 @@ import Footer from '../components/footer.astro';
 
         function updatePipes() {
             pipes.forEach(pipe => {
-                pipe.x -= 3; // Speed of pipes
+                pipe.x -= 3;
                 if (pipe.x + pipe.width < 0) {
                     pipes.shift();
                     score++;
@@ -130,7 +147,7 @@ import Footer from '../components/footer.astro';
                     gameRunning = false;
                     startText.innerText = `Game Over! Score: ${score} (Press SPACE to Restart)`;
                     startText.style.display = "block";
-                    clearInterval(pipeInterval); // Stop pipes when game is over
+                    clearInterval(pipeInterval);
                 }
             });
         }
@@ -162,7 +179,7 @@ import Footer from '../components/footer.astro';
                     gameStarted = true;
                     gameRunning = true;
                     startText.style.display = "none";
-                    pipeInterval = setInterval(spawnPipe, 2000); // Properly resets pipes
+                    pipeInterval = setInterval(spawnPipe, 2000);
                     gameLoop();
                 }
                 if (gameRunning) {
