@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firweb - Car Dodge Game</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="icon" href="firwoodPic.png">
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #1e1e1e;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+      #gameContainer {
+        position: relative;
+        width: 300px;
+        height: 400px;
+        background: gray;
+        overflow: hidden;
+        border: 2px solid white;
+      }
+      .car {
+        width: 50px;
+        height: 80px;
+        background: red;
+        position: absolute;
+        bottom: 10px;
+        left: 125px;
+      }
+      .obstacle {
+        width: 50px;
+        height: 80px;
+        background: black;
+        position: absolute;
+        top: -80px;
+        left: 125px;
+      }
+      header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <button id="test" href="main.html">Home</button>
+          </li>
+          <li>
+            <button id="test" href="2.html">Test1</button>
+          </li>
+          <li>
+            <button id="test" href="3.html">Test2</button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <h1>Car Dodge Game</h1>
+    <p>Avoid the obstacles! Use left/right arrow keys.</p>
+    <div id="gameContainer">
+      <div class="car" id="car"></div>
+    </div>
+    <script>
+      const car = document.getElementById("car");
+      let carPosition = 125;
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "ArrowLeft" && carPosition > 50) {
+          carPosition -= 50;
+        } else if (event.key === "ArrowRight" && carPosition < 200) {
+          carPosition += 50;
+        }
+        car.style.left = carPosition + "px";
+      });
+
+      function spawnObstacle() {
+        const obstacle = document.createElement("div");
+        obstacle.classList.add("obstacle");
+        obstacle.style.left = [50, 125, 200][Math.floor(Math.random() * 3)] + "px";
+        document.getElementById("gameContainer").appendChild(obstacle);
+
+        let obstaclePosition = -80;
+        const fallInterval = setInterval(() => {
+          if (obstaclePosition > 320 && obstacle.style.left === car.style.left) {
+            alert("Game Over! Refresh to play again.");
+            location.reload();
+          }
+          if (obstaclePosition > 400) {
+            clearInterval(fallInterval);
+            obstacle.remove();
+          }
+          obstaclePosition += 5;
+          obstacle.style.top = obstaclePosition + "px";
+        }, 50);
+      }
+      setInterval(spawnObstacle, 1500);
+    </script>
+  </body>
+</html>
