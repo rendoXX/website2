@@ -5,104 +5,98 @@ import Footer from '../components/footer.astro';
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Firweb - Car Game</title>
-    <link rel="icon" href="/firwoodPic.png">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Covet</title>
     <style>
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        background-color: #1e1e1e;
-        color: white;
-        font-family: Arial, sans-serif;
-        overflow: hidden;
-      }
-      #gameContainer {
-        position: relative;
-        width: 300px;
-        height: 500px;
-        background: gray;
-        overflow: hidden;
-        border: 2px solid white;
-      }
-      .car {
-        width: 50px;
-        height: 80px;
-        background: red;
-        position: absolute;
-        bottom: 20px;
-        left: 125px;
-      }
-      .obstacle {
-        width: 50px;
-        height: 80px;
-        background: black;
-        position: absolute;
-        top: -80px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Car Dodge Game</h1>
-    <p>Avoid the obstacles! Use left/right arrow keys.</p>
-    <div id="gameContainer">
-      <div class="car" id="car"></div>
-    </div>
-
-    <script>
-      const car = document.getElementById("car");
-      const gameContainer = document.getElementById("gameContainer");
-      let carPosition = 125;
-      let gameOver = false;
-      
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "ArrowLeft" && carPosition > 50) {
-          carPosition -= 75;
-        } else if (event.key === "ArrowRight" && carPosition < 200) {
-          carPosition += 75;
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: skyblue;
         }
-        car.style.left = carPosition + "px";
-      });
+        canvas {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 400;
+        canvas.height = 500;
 
-      function spawnObstacle() {
-        if (gameOver) return;
-        const obstacle = document.createElement("div");
-        obstacle.classList.add("obstacle");
-        obstacle.style.left = [50, 125, 200][Math.floor(Math.random() * 3)] + "px";
-        gameContainer.appendChild(obstacle);
+        const covetImg = new Image();
+        covetImg.src = "/covet.png"; // Make sure you have this image in your public folder
 
-        let obstaclePosition = -80;
-        const fallInterval = setInterval(() => {
-          if (gameOver) {
-            clearInterval(fallInterval);
-            obstacle.remove();
-            return;
-          }
-          obstaclePosition += 5;
-          obstacle.style.top = obstaclePosition + "px";
+        let covet = { x: 50, y: 200, width: 40, height: 30, velocity: 0, gravity: 0.5 };
+        let pipes = [];
+        let score = 0;
+        let gameRunning = true;
 
-          if (obstaclePosition > 320 && parseInt(obstacle.style.left) === carPosition) {
-            if (!gameOver) {
-              gameOver = true;
-              alert("Game Over! Refresh to play again.");
-              location.reload();
+        function drawCovet() {
+            ctx.drawImage(covetImg, covet.x, covet.y, covet.width, covet.height);
+        }
+
+        function drawPipes() {
+            ctx.fillStyle = "green";
+            pipes.forEach(pipe => {
+                ctx.fillRect(pipe.x, 0, pipe.width, pipe.topHeight);
+                ctx.fillRect(pipe.x, pipe.topHeight + pipe.gap, pipe.width, canvas.height - pipe.topHeight - pipe.gap);
+            });
+        }
+
+        function updatePipes() {
+            pipes.forEach(pipe => {
+                pipe.x -= 2;
+                if (pipe.x + pipe.width < 0) {
+                    pipes.shift();
+                    score++;
+                }
+                if (
+                    (covet.x < pipe.x + pipe.width && covet.x + covet.width > pipe.x && 
+                    (covet.y < pipe.topHeight || covet.y + covet.height > pipe.topHeight + pipe.gap)) || 
+                    covet.y > canvas.height - covet.height
+                ) {
+                    gameRunning = false;
+                    alert("Game Over! Score: " + score);
+                    location.reload();
+                }
+            });
+        }
+
+        function spawnPipe() {
+            let topHeight = Math.floor(Math.random() * 150) + 50;
+            let gap = 120;
+            pipes.push({ x: canvas.width, width: 50, topHeight, gap });
+        }
+
+        function gameLoop() {
+            if (!gameRunning) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            covet.velocity += covet.gravity;
+            covet.y += covet.velocity;
+            drawCovet();
+            drawPipes();
+            updatePipes();
+            requestAnimationFrame(gameLoop);
+        }
+
+        document.addEventListener("keydown", function (event) {
+            if (event.code === "Space") {
+                covet.velocity = -7;
             }
-          }
+        });
 
-          if (obstaclePosition > 500) {
-            clearInterval(fallInterval);
-            obstacle.remove();
-          }
-        }, 50);
-      }
-
-      setInterval(spawnObstacle, 1500);
+        setInterval(spawnPipe, 2000);
+        gameLoop();
     </script>
 <Footer />
-  </body>
+</body>
 </html>
