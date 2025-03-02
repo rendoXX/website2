@@ -92,6 +92,7 @@ import Footer from '../components/footer.astro';
         const obstacle = document.createElement("div");
         obstacle.classList.add("obstacle");
         obstacle.style.left = [50, 125, 200][Math.floor(Math.random() * 3)] + "px";
+        obstacle.style.top = "-80px"; // Explicitly setting this here again
         gameContainer.appendChild(obstacle);
 
         let obstaclePosition = -80;
@@ -103,7 +104,10 @@ import Footer from '../components/footer.astro';
           }
 
           obstaclePosition += 5;
-          obstacle.style.top = obstaclePosition + "px";
+          obstacle.style.top = obstaclePosition + "px"; // Ensure position updates
+          
+          // Debugging log to check position updates
+          console.log(`Obstacle Position: ${obstacle.style.top}`);
 
           // Check for collision
           if (obstaclePosition > 320 && parseInt(obstacle.style.left) === carPosition) {
