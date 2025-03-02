@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firweb - Clicker Game</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="icon" href="firwoodPic.png">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <button id="test" href="main.html">Home</button>
+          </li>
+          <li>
+            <button id="test" href="2.html">Test1</button>
+          </li>
+          <li>
+            <button id="test" href="3.html">Test2</button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <h1>Clicker Game</h1>
+    <section>
+      <p>Click the button!!!</p>
+      <button id="clicker">Click Me!</button>
+      <p>Score: <span id="score">0</span></p>
+    </section>
+    <script>
+      let score = 0;
+      document.getElementById('clicker').addEventListener('click', function() {
+        score++;
+        document.getElementById('score').textContent = score;
+      });
+    </script>
+  </body>
+</html>
