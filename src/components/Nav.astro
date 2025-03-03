@@ -1,9 +1,13 @@
 ---
 import '../styles/global.css';
+import Logo from '../components/Logo.astro';
 ---
 
 <nav>
   <ul>
+    <li>
+      <Logo />
+    </li>
     <li>
       <button id="logo" onclick="window.location.href='/'">Firweb</button>
     </li>
@@ -18,21 +22,3 @@ import '../styles/global.css';
     </li>
   </ul>
 </nav>
-
-<style>
-  #logo {
-    font-size: 32px; /* Bigger size */
-    font-weight: bold;
-    margin-right: auto; /* Pushes it to the left */
-    transition: transform 0.3s ease-in-out;
-  }
-
-  #logo:hover {
-    transform: scale(1.1); /* Only this hover effect */
-  }
-
-  nav ul {
-    display: flex;
-    align-items: center;
-  }
-</style>
