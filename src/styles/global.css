@@ -181,7 +181,11 @@ button:hover::after {
     nav ul {
         flex-direction: column;
         align-items: center;
+        display: flex;
+        justify-content: flex-end;
         gap: 10px;
+        margin: 0;
+        padding: 0;
     }
 
     #download {
