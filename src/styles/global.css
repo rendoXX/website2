@@ -146,16 +146,16 @@ button {
     overflow: hidden;
 }
 
-button:hover {
+#test:hover {
     background-color: #555;
     transform: scale(1.05);
 }
 
-button:active {
+#test:active {
     transform: scale(0.95);
 }
 
-button::after {
+#test::after {
     content: "";
     position: absolute;
     top: 0;
@@ -166,13 +166,14 @@ button::after {
     transition: left 0.5s ease-in-out;
 }
 
-button:hover::after {
+#test:hover::after {
     left: 100%;
 }
 #header-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    position: relative;
     padding: 10px 20px;
 }
 
