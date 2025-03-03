@@ -1,17 +1,29 @@
 ---
 import '../styles/global.css';
+import Logo from '../components/Logo.astro';
 ---
 
 <nav>
-  <ul>
-    <li>
-      <button id="test" onclick="window.location.href='/'">Home</button>
-    </li>
-    <li>
-      <button id="test" onclick="window.location.href='/2'">Clicker game</button>
-    </li>
-    <li>
-      <button id="test" onclick="window.location.href='/3'">Flappy covet</button>
-    </li>
-  </ul>
+  <div id="nav-container">
+    <Logo />
+
+    <!-- Burger menu button -->
+    <button class="burger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </button>
+    
+    <ul id="nav-menu">
+      <li><button onclick="window.location.href='/'">Home</button></li>
+      <li><button onclick="window.location.href='/2'">Clicker game</button></li>
+      <li><button onclick="window.location.href='/3'">Flappy covet</button></li>
+    </ul>
+  </div>
 </nav>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('nav-menu').classList.toggle('active');
+  }
+</script>
