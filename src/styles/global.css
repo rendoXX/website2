@@ -179,9 +179,12 @@ button:hover::after {
 
 @media (max-width: 770px) {
     nav ul {
-        flex-direction: column;
+        flex-direction: row; /* Keep buttons in a row */
+        justify-content: flex-end; /* Move buttons to the right */
         align-items: center;
-        gap: 10px;
+        display: flex;
+        width: 100%;
+        padding-right: 20px;
     }
 
     #download {
