@@ -1,0 +1,18 @@
+[
+    {
+      "name": "Speed limit",
+      "description": "Speed limit mod for firwood servers.",
+      "file": "speedlimit_V1.1"
+    },
+    {
+      "name": "Speed limit 2",
+      "description": "Speed limit mod for firwood servers but with frp warning messages.",
+      "file": "speedlimit_w_message"
+    },
+    {
+      "name": "Speed limit 3",
+      "description": "Speed limit mod for firwood servers but with EXTRA frp warning messages.",
+      "file": "speedlimit_w_message+"
+    }
+  ]
+  
