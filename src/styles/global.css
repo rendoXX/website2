@@ -193,20 +193,22 @@ button:hover::after {
     .info {
         width: 90%;
     }
-    #nav-menu {
-        flex-direction: row; /* Keep buttons in a row */
+    nav {
         display: flex;
-        gap: 10px; /* Adjust spacing between buttons */
+        justify-content: flex-end; /* Moves navigation to the right */
+        width: 100%;
         padding-right: 20px;
+    }
+
+    #nav-menu {
+        display: flex;
+        flex-direction: row; /* Keeps buttons in a row */
+        gap: 10px; /* Adds spacing between buttons */
         list-style: none;
         padding: 0;
         margin: 0;
     }
-    nav {
-        display: flex;
-        justify-content: flex-end; /* Move everything to the right */
-        padding-right: 20px;
-    }
+
     #nav-menu li {
         display: flex;
     }
