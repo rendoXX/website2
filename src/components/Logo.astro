@@ -6,14 +6,34 @@ import '../styles/global.css';
 
 <style>
   #logo {
-    font-size: 32px;
+    font-size: 48px;
     font-weight: bold;
-    transition: transform 0.3s ease-in-out;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out; /* Only keep hover animation */
     position: absolute;
     left: 20px;
   }
 
   #logo:hover {
     transform: scale(1.1);
+  }
+
+  /* Override global button styles */
+  #logo::before,
+  #logo::after {
+    display: none !important;
+  }
+
+  #logo:hover {
+    border: none;
+    box-shadow: none;
+    transform: scale(1.1);
+  }
+
+  #logo:active {
+    transform: scale(1.1); /* Prevents shrinking on click */
   }
 </style>
