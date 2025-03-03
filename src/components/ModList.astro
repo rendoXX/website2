@@ -1,0 +1,16 @@
+---
+import mods from '../data/mods.json';
+import '../styles/global.css';
+---
+
+<section id="download">
+  {mods.map((mod) => (
+    <div class="info">
+      <div class="mod">
+        <h3>{mod.name}</h3>
+        <p>{mod.description}</p>
+        <button onclick={`downloadFile('${mod.file}')`}>Download</button>
+      </div>
+    </div>
+  ))}
+</section>
