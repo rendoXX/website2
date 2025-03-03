@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Footer from '../components/footer.astro';
 import Nav from '../components/Nav.astro';
+import ModList from '../components/ModList.astro';
 ---
 
 <!DOCTYPE html>
@@ -16,30 +17,8 @@ import Nav from '../components/Nav.astro';
 <header>
     <Nav />
 </header>
-    <h1>Useless mod download section</h1>
-    <section id="download">
-        <div class="info">
-          <div class="mod">
-            <h3>Speed limit</h3>
-            <p>Speed limit mod for firwood servers.</p>
-            <button onclick="downloadFile('speedlimit_V1.1')">Download</button>
-          </div>
-        </div>
-        <div class="info">
-            <div class="mod">
-              <h3>Speed limit 2</h3>
-              <p>Speed limit mod for firwood servers but with frp warning messages.</p>
-              <button onclick="downloadFile('speedlimit_w_message')">Download</button>
-            </div>
-          </div>
-          <div class="info">
-            <div class="mod">
-              <h3>Speed limit 3</h3>
-              <p>Speed limit mod for firwood servers but with EXTRA frp warning messages.</p>
-              <button onclick="downloadFile('speedlimit_w_message+')">Download</button>
-            </div>
-          </div>
-      </section>
+    <h1>Mod download section</h1>
+    <ModList />
       <script src="/main.js" is:defer></script>
 <Footer />
     </body>
