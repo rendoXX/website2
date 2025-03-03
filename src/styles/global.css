@@ -179,6 +179,8 @@ button:hover::after {
 
 @media (max-width: 770px) {
     nav ul {
+        display: flex;
+        justify-content: felx-end;
         flex-direction: column;
         align-items: center;
         gap: 10px;
